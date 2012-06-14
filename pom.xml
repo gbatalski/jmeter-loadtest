@@ -1,0 +1,58 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>jmeter-loadtest</groupId>
+	<artifactId>jmeter-loadtest</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<profiles>
+	<profile>
+		<id>default</id>
+		<properties>
+			<protocol>http</protocol>
+			<host>localhost</host>
+			<port>9292</port>
+			<contextPath>/</contextPath>
+		</properties>
+		<activation>
+			<activeByDefault>true</activeByDefault>
+		</activation>
+	</profile>
+</profiles>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.lazerycode.jmeter</groupId>
+				<artifactId>jmeter-maven-plugin</artifactId>
+				<version>1.4.1</version>
+				<executions>
+					<execution>
+						<id>jmeter-tests</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>jmeter</goal>
+						</goals>
+					</execution>
+
+				</executions>
+				<!-- 
+				1. These properties can be passed from commandline as a jvm options to maven (-Dblabla=...)
+				2. Then they would be merged into system.properties and propagated to jmeter
+				3. Within the jmeter they are reachable via ${__P(blabla)} or ${__property(blabla)} 				
+				See also:
+				    - https://groups.google.com/forum/?fromgroups#!topic/maven-jmeter-plugin-users/rPWZ45Vzw-c
+				    - http://wiki.apache.org/jmeter/JMeterFAQ#How_do_I_parameterize_my_JMeter_test_cases.3F	
+				 -->				 
+				<configuration>
+					<propertiesSystem>
+					    <protocol>${protocol}</protocol>
+						<host>${host}</host>
+						<port>${port}</port>
+						<contextPath>${contextPath}</contextPath>
+					</propertiesSystem>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+</project>
