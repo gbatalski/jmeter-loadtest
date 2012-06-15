@@ -18,8 +18,11 @@
 				<port>9292</port>
 				<contextPath>/</contextPath>
 				<users>10</users>
-	            <loops>1</loops>
+	            <loops>1</loops>	           
 			</properties>
+			<activation>
+			 <activeByDefault>true</activeByDefault>
+			</activation>
 		<build>
 			<plugins>
 				<plugin>
