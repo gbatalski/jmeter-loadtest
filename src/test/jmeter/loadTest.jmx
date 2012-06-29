@@ -3,7 +3,7 @@
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Testplan" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
-      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.functional_mode">true</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="Benutzer definierte Variablen" enabled="true">
         <collectionProp name="Arguments.arguments"/>
@@ -11,6 +11,28 @@
       <stringProp name="TestPlan.user_define_classpath"></stringProp>
     </TestPlan>
     <hashTree>
+      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
+        <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+          <collectionProp name="Arguments.arguments"/>
+        </elementProp>
+        <stringProp name="HTTPSampler.domain">${__P(host,localhost)}</stringProp>
+        <stringProp name="HTTPSampler.port">${__P(port,9292)}</stringProp>
+        <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+        <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        <stringProp name="HTTPSampler.protocol">${__P(protocol,http)}</stringProp>
+        <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+        <stringProp name="HTTPSampler.path">${__P(contextPath,/)}</stringProp>
+        <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        <boolProp name="HTTPSampler.image_parser">true</boolProp>
+        <stringProp name="HTTPSampler.concurrentPool">4</stringProp>
+      </ConfigTestElement>
+      <hashTree/>
+      <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
+        <collectionProp name="CookieManager.cookies"/>
+        <boolProp name="CookieManager.clearEachIteration">true</boolProp>
+        <stringProp name="CookieManager.policy">default</stringProp>
+      </CookieManager>
+      <hashTree/>
       <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User defined variables" enabled="true">
         <collectionProp name="Arguments.arguments">
           <elementProp name="contextPath" elementType="Argument">
@@ -55,32 +77,379 @@
           </elementProp>
           <elementProp name="minimumTweetsPerSession" elementType="Argument">
             <stringProp name="Argument.name">minimumTweetsPerSession</stringProp>
-            <stringProp name="Argument.value">${__P(minimumTweetsPerSession,1)}</stringProp>
+            <stringProp name="Argument.value">${__P(minimumTweetsPerSession,3)}</stringProp>
             <stringProp name="Argument.desc">Min Tweets per Session</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="maximumTweetsPerSession" elementType="Argument">
             <stringProp name="Argument.name">maximumTweetsPerSession</stringProp>
-            <stringProp name="Argument.value">${__P(maximumTweetsPerSession,5)}</stringProp>
+            <stringProp name="Argument.value">${__P(maximumTweetsPerSession,10)}</stringProp>
             <stringProp name="Argument.desc">Max Tweets per Session</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="tweetOrBrowseOperationsCount" elementType="Argument">
             <stringProp name="Argument.name">tweetOrBrowseOperationsCount</stringProp>
-            <stringProp name="Argument.value">${__P(tweetOrBrowseOperationsCount,5)}</stringProp>
+            <stringProp name="Argument.value">${__P(tweetOrBrowseOperationsCount,50)}</stringProp>
             <stringProp name="Argument.desc">Loops count for tweet or browse operation</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="tweetsPerPoweruser" elementType="Argument">
+            <stringProp name="Argument.name">tweetsPerPoweruser</stringProp>
+            <stringProp name="Argument.value">${__P(tweetsPerPoweruser,10)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="friendsPerPoweruser" elementType="Argument">
+            <stringProp name="Argument.name">friendsPerPoweruser</stringProp>
+            <stringProp name="Argument.value">${__P(friendsPerPoweruser,10)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="powerUserFriendsCount" elementType="Argument">
+            <stringProp name="Argument.name">powerUserFriendsCount</stringProp>
+            <stringProp name="Argument.value">${__P(powerUserFriendsCount,20)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="powerUser2UserTweetRatio" elementType="Argument">
+            <stringProp name="Argument.name">powerUser2UserTweetRatio</stringProp>
+            <stringProp name="Argument.value">${__P(powerUser2UserTweetRatio,10)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
       </Arguments>
       <hashTree/>
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="Set Up Poweruser and Post some Tweets from them" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">${__P(loops,2)}</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${__P(users,5)}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">5</stringProp>
+        <longProp name="ThreadGroup.start_time">1340877852000</longProp>
+        <longProp name="ThreadGroup.end_time">1340877852000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </SetupThreadGroup>
+      <hashTree>
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="Pick Random Poweruser BeanShell Sampler" enabled="true">
+          <stringProp name="BeanShellSampler.query">import java.util.Random;
+
+Random random = new Random();
+Integer powerUserRatio =  Integer.parseInt(vars.get(&quot;powerUserRatio&quot;));
+Integer index = random.nextInt(2000/powerUserRatio)*powerUserRatio + 1;
+
+vars.put(&quot;isPowerUser&quot;, &quot;true&quot;);
+//log.info(vars.get( &quot;name_&quot;+index));
+//log.info(vars.get( &quot;isPowerUser&quot;));
+vars.put(&quot;username&quot;,vars.get( &quot;name_&quot;+index));
+</stringProp>
+          <stringProp name="BeanShellSampler.filename"></stringProp>
+          <stringProp name="BeanShellSampler.parameters"></stringProp>
+          <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+        </BeanShellSampler>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Home" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">${contextPath}</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="Accept-Language" elementType="Header">
+                <stringProp name="Header.name">Accept-Language</stringProp>
+                <stringProp name="Header.value">de-DE,de,en-US;q=0.9,en;q=0.9,ru-RU;q=0.8,ru;q=0.8,de-CH;q=0.8,de-AT;q=0.7,en-GB;q=0.7,it-IT;q=0.6,it;q=0.6,zh-TW;q=0.6,zh;q=0.5,en-ca;q=0.5,en-gb;q=0.4,en-us;q=0.4,fr-FR;q=0.4,fr;q=0.3,se-SE;q=0.3,se;q=0.2,de-de;q=0.2,hu-HU;q=0.2,hu;q=0.1,ru-ru;q=0.1,defaultQLS;q=0.0</stringProp>
+              </elementProp>
+              <elementProp name="Accept" elementType="Header">
+                <stringProp name="Header.name">Accept</stringProp>
+                <stringProp name="Header.value">text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</stringProp>
+              </elementProp>
+              <elementProp name="User-Agent" elementType="Header">
+                <stringProp name="Header.name">User-Agent</stringProp>
+                <stringProp name="Header.value">Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:13.0) Gecko/20100101 Firefox/13.0</stringProp>
+              </elementProp>
+              <elementProp name="Accept-Encoding" elementType="Header">
+                <stringProp name="Header.name">Accept-Encoding</stringProp>
+                <stringProp name="Header.value">gzip, deflate</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+        </hashTree>
+        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Login or Signup Module Controller" enabled="true">
+          <collectionProp name="ModuleController.node_path">
+            <stringProp name="-1227702913">WorkBench</stringProp>
+            <stringProp name="-1081304357">Testplan</stringProp>
+            <stringProp name="-27998638">Login or Signup Fragment</stringProp>
+          </collectionProp>
+        </ModuleController>
+        <hashTree/>
+        <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Tweet ${tweetsPerPoweruser} Tweets Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">true</boolProp>
+          <stringProp name="LoopController.loops">${tweetsPerPoweruser}</stringProp>
+        </LoopController>
+        <hashTree>
+          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Post tweet Module Controller" enabled="true">
+            <collectionProp name="ModuleController.node_path">
+              <stringProp name="-1227702913">WorkBench</stringProp>
+              <stringProp name="-1081304357">Testplan</stringProp>
+              <stringProp name="-861569345">Post Tweet Fragment</stringProp>
+            </collectionProp>
+          </ModuleController>
+          <hashTree/>
+        </hashTree>
+        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Logout Module Controller" enabled="true">
+          <collectionProp name="ModuleController.node_path">
+            <stringProp name="-1227702913">WorkBench</stringProp>
+            <stringProp name="-1081304357">Testplan</stringProp>
+            <stringProp name="-790338522">Logout Fragment</stringProp>
+          </collectionProp>
+        </ModuleController>
+        <hashTree/>
+        <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant throughput timer" enabled="true">
+          <stringProp name="calcMode">all active threads in current thread group</stringProp>
+          <doubleProp>
+            <name>throughput</name>
+            <value>10000.0</value>
+            <savedValue>0.0</savedValue>
+          </doubleProp>
+        </ConstantThroughputTimer>
+        <hashTree/>
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>true</xml>
+              <fieldNames>false</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="Set Up Initial Friendship Thread Group" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">${__P(loops,2)}</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${__P(users,5)}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">5</stringProp>
+        <longProp name="ThreadGroup.start_time">1340900140000</longProp>
+        <longProp name="ThreadGroup.end_time">1340900140000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </SetupThreadGroup>
+      <hashTree>
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="Pick Poweruser BeanShell Sampler" enabled="true">
+          <stringProp name="BeanShellSampler.query">import java.util.Random;
+
+Random random = new Random();
+Integer powerUserRatio =  Integer.parseInt(vars.get(&quot;powerUserRatio&quot;));
+Integer index = random.nextInt(2000/powerUserRatio)*powerUserRatio + 1;
+
+vars.put(&quot;isPowerUser&quot;, &quot;true&quot;);
+//log.info(vars.get( &quot;name_&quot;+index));
+//log.info(vars.get( &quot;isPowerUser&quot;));
+vars.put(&quot;username&quot;,vars.get( &quot;name_&quot;+index));
+</stringProp>
+          <stringProp name="BeanShellSampler.filename"></stringProp>
+          <stringProp name="BeanShellSampler.parameters"></stringProp>
+          <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+        </BeanShellSampler>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Home" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">${contextPath}</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="Accept-Language" elementType="Header">
+                <stringProp name="Header.name">Accept-Language</stringProp>
+                <stringProp name="Header.value">de-DE,de,en-US;q=0.9,en;q=0.9,ru-RU;q=0.8,ru;q=0.8,de-CH;q=0.8,de-AT;q=0.7,en-GB;q=0.7,it-IT;q=0.6,it;q=0.6,zh-TW;q=0.6,zh;q=0.5,en-ca;q=0.5,en-gb;q=0.4,en-us;q=0.4,fr-FR;q=0.4,fr;q=0.3,se-SE;q=0.3,se;q=0.2,de-de;q=0.2,hu-HU;q=0.2,hu;q=0.1,ru-ru;q=0.1,defaultQLS;q=0.0</stringProp>
+              </elementProp>
+              <elementProp name="Accept" elementType="Header">
+                <stringProp name="Header.name">Accept</stringProp>
+                <stringProp name="Header.value">text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</stringProp>
+              </elementProp>
+              <elementProp name="User-Agent" elementType="Header">
+                <stringProp name="Header.name">User-Agent</stringProp>
+                <stringProp name="Header.value">Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:13.0) Gecko/20100101 Firefox/13.0</stringProp>
+              </elementProp>
+              <elementProp name="Accept-Encoding" elementType="Header">
+                <stringProp name="Header.name">Accept-Encoding</stringProp>
+                <stringProp name="Header.value">gzip, deflate</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+        </hashTree>
+        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Login or Signup Module Controller" enabled="true">
+          <collectionProp name="ModuleController.node_path">
+            <stringProp name="-1227702913">WorkBench</stringProp>
+            <stringProp name="-1081304357">Testplan</stringProp>
+            <stringProp name="-27998638">Login or Signup Fragment</stringProp>
+          </collectionProp>
+        </ModuleController>
+        <hashTree/>
+        <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Add Some Friends of Poweruser Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">true</boolProp>
+          <stringProp name="LoopController.loops">${powerUserFriendsCount}</stringProp>
+        </LoopController>
+        <hashTree>
+          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="Pick Member for Friendship BeanShell Sampler" enabled="true">
+            <stringProp name="BeanShellSampler.query">import java.util.Random;
+
+Random random = new Random();
+Integer powerUserRatio =  Integer.parseInt(vars.get(&quot;powerUserRatio&quot;));
+Integer index = 0;
+do{
+  index= random.nextInt(2000/powerUserRatio)*powerUserRatio + 1;
+}while(vars.get( &quot;name_&quot;+index).equals(vars.get( &quot;username&quot;)));
+
+//log.info(vars.get( &quot;name_&quot;+index));
+vars.put(&quot;member&quot;,vars.get( &quot;name_&quot;+index));
+</stringProp>
+            <stringProp name="BeanShellSampler.filename"></stringProp>
+            <stringProp name="BeanShellSampler.parameters"></stringProp>
+            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+          </BeanShellSampler>
+          <hashTree/>
+          <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="action" elementType="Argument">
+                <stringProp name="Argument.name">action</stringProp>
+                <stringProp name="Argument.value">Add</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </Arguments>
+          <hashTree/>
+          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Add Or Remove Friend Module Controller" enabled="true">
+            <collectionProp name="ModuleController.node_path">
+              <stringProp name="-1227702913">WorkBench</stringProp>
+              <stringProp name="-1081304357">Testplan</stringProp>
+              <stringProp name="-2002903564">Add Or Remove Friend Fragment</stringProp>
+            </collectionProp>
+          </ModuleController>
+          <hashTree/>
+          <GaussianRandomTimer guiclass="GaussianRandomTimerGui" testclass="GaussianRandomTimer" testname="Gaussian Random Timer" enabled="true">
+            <stringProp name="ConstantTimer.delay">300</stringProp>
+            <stringProp name="RandomTimer.range">100.0</stringProp>
+          </GaussianRandomTimer>
+          <hashTree/>
+        </hashTree>
+        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Logout Module Controller" enabled="true">
+          <collectionProp name="ModuleController.node_path">
+            <stringProp name="-1227702913">WorkBench</stringProp>
+            <stringProp name="-1081304357">Testplan</stringProp>
+            <stringProp name="-790338522">Logout Fragment</stringProp>
+          </collectionProp>
+        </ModuleController>
+        <hashTree/>
+        <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant throughput timer" enabled="true">
+          <stringProp name="calcMode">all active threads in current thread group</stringProp>
+          <doubleProp>
+            <name>throughput</name>
+            <value>10000.0</value>
+            <savedValue>0.0</savedValue>
+          </doubleProp>
+        </ConstantThroughputTimer>
+        <hashTree/>
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>true</xml>
+              <fieldNames>false</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Main" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">${__P(loops,1)}</stringProp>
+          <stringProp name="LoopController.loops">${__P(loops,2)}</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">${__P(users,3)}</stringProp>
+        <stringProp name="ThreadGroup.num_threads">${__P(users,5)}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">5</stringProp>
         <longProp name="ThreadGroup.start_time">1339409694000</longProp>
         <longProp name="ThreadGroup.end_time">1339409694000</longProp>
@@ -89,22 +458,6 @@
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
-        <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-            <collectionProp name="Arguments.arguments"/>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain">${__P(host,localhost)}</stringProp>
-          <stringProp name="HTTPSampler.port">${__P(port,9292)}</stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          <stringProp name="HTTPSampler.protocol">${__P(protocol,http)}</stringProp>
-          <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
-          <stringProp name="HTTPSampler.path">${__P(contextPath,/)}</stringProp>
-          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
-          <boolProp name="HTTPSampler.image_parser">true</boolProp>
-          <stringProp name="HTTPSampler.concurrentPool">4</stringProp>
-        </ConfigTestElement>
-        <hashTree/>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Load Users" enabled="false">
           <stringProp name="delimiter">\r\n</stringProp>
           <stringProp name="fileEncoding">UTF-8</stringProp>
@@ -127,19 +480,17 @@
           <stringProp name="shareMode">All threads</stringProp>
         </CSVDataSet>
         <hashTree/>
-        <OnceOnlyController guiclass="OnceOnlyControllerGui" testclass="OnceOnlyController" testname="Once Only Controller" enabled="true"/>
-        <hashTree>
-          <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="Index of Current User Random Variable" enabled="true">
-            <stringProp name="variableName">userRandomValue</stringProp>
-            <stringProp name="outputFormat"></stringProp>
-            <stringProp name="minimumValue">1</stringProp>
-            <stringProp name="maximumValue">2000</stringProp>
-            <stringProp name="randomSeed"></stringProp>
-            <boolProp name="perThread">true</boolProp>
-          </RandomVariableConfig>
-          <hashTree/>
-          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="Current Username and Type BeanShell Sampler" enabled="true">
-            <stringProp name="BeanShellSampler.query">Integer index = Integer.parseInt(vars.get(&quot;userRandomValue&quot;));
+        <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="Index of Current User Random Variable" enabled="true">
+          <stringProp name="variableName">userRandomValue</stringProp>
+          <stringProp name="outputFormat"></stringProp>
+          <stringProp name="minimumValue">1</stringProp>
+          <stringProp name="maximumValue">2000</stringProp>
+          <stringProp name="randomSeed"></stringProp>
+          <boolProp name="perThread">true</boolProp>
+        </RandomVariableConfig>
+        <hashTree/>
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="Current Username and Type BeanShell Sampler" enabled="true">
+          <stringProp name="BeanShellSampler.query">Integer index = Integer.parseInt(vars.get(&quot;userRandomValue&quot;));
 Integer powerUserRatio =  Integer.parseInt(vars.get(&quot;powerUserRatio&quot;));
 if(index % powerUserRatio == 0) vars.put(&quot;isPowerUser&quot;, &quot;true&quot;);
 	
@@ -147,12 +498,11 @@ if(index % powerUserRatio == 0) vars.put(&quot;isPowerUser&quot;, &quot;true&quo
 //log.info(vars.get( &quot;isPowerUser&quot;));
 vars.put(&quot;username&quot;,vars.get( &quot;name_&quot;+index));
 </stringProp>
-            <stringProp name="BeanShellSampler.filename"></stringProp>
-            <stringProp name="BeanShellSampler.parameters"></stringProp>
-            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
-          </BeanShellSampler>
-          <hashTree/>
-        </hashTree>
+          <stringProp name="BeanShellSampler.filename"></stringProp>
+          <stringProp name="BeanShellSampler.parameters"></stringProp>
+          <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+        </BeanShellSampler>
+        <hashTree/>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Go To Home and Browse Publicline" enabled="true"/>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Home" enabled="true">
@@ -207,18 +557,15 @@ vars.put(&quot;username&quot;,vars.get( &quot;name_&quot;+index));
           </ModuleController>
           <hashTree/>
         </hashTree>
-        <OnceOnlyController guiclass="OnceOnlyControllerGui" testclass="OnceOnlyController" testname="Login (Once Only)" enabled="true"/>
-        <hashTree>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Login Signup Module Controller" enabled="true">
-            <collectionProp name="ModuleController.node_path">
-              <stringProp name="-1227702913">WorkBench</stringProp>
-              <stringProp name="-1081304357">Testplan</stringProp>
-              <stringProp name="-27998638">Login or Signup Fragment</stringProp>
-              <stringProp name="622149444">LoginOrSignup</stringProp>
-            </collectionProp>
-          </ModuleController>
-          <hashTree/>
-        </hashTree>
+        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Login Signup Module Controller" enabled="true">
+          <collectionProp name="ModuleController.node_path">
+            <stringProp name="-1227702913">WorkBench</stringProp>
+            <stringProp name="-1081304357">Testplan</stringProp>
+            <stringProp name="-27998638">Login or Signup Fragment</stringProp>
+            <stringProp name="622149444">LoginOrSignup</stringProp>
+          </collectionProp>
+        </ModuleController>
+        <hashTree/>
         <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Browse Publicline" enabled="true">
           <collectionProp name="ModuleController.node_path">
             <stringProp name="-1227702913">WorkBench</stringProp>
@@ -248,6 +595,24 @@ vars.put(&quot;username&quot;,vars.get( &quot;name_&quot;+index));
                 <stringProp name="variableName">repeatTweets</stringProp>
               </RandomVariableConfig>
               <hashTree/>
+              <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller" enabled="true">
+                <stringProp name="IfController.condition">&quot;${isPowerUser}&quot;==&quot;true&quot;</stringProp>
+                <boolProp name="IfController.evaluateAll">true</boolProp>
+              </IfController>
+              <hashTree>
+                <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="Tweets Count for Poweruser" enabled="true">
+                  <stringProp name="BeanShellSampler.query">Integer powerUser2UserTweetRatio = Integer.parseInt(vars.get(&quot;powerUser2UserTweetRatio&quot;));
+Integer repeatTweets = Integer.parseInt(vars.get(&quot;repeatTweets&quot;));
+vars.put(&quot;repeatTweets&quot;,&quot;&quot;+(repeatTweets*powerUser2UserTweetRatio));
+
+//log.info(&quot;Is power user: &quot;+vars.get(&quot;isPowerUser&quot;));
+//log.info(&quot;repeatTweets: &quot; + vars.get(&quot;repeatTweets&quot;));</stringProp>
+                  <stringProp name="BeanShellSampler.filename"></stringProp>
+                  <stringProp name="BeanShellSampler.parameters"></stringProp>
+                  <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+                </BeanShellSampler>
+                <hashTree/>
+              </hashTree>
               <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Post Tweet and Browse (module)" enabled="true">
                 <collectionProp name="ModuleController.node_path">
                   <stringProp name="-1227702913">WorkBench</stringProp>
@@ -261,70 +626,82 @@ vars.put(&quot;username&quot;,vars.get( &quot;name_&quot;+index));
               <collectionProp name="ModuleController.node_path">
                 <stringProp name="-1227702913">WorkBench</stringProp>
                 <stringProp name="-1081304357">Testplan</stringProp>
-                <stringProp name="-368934660">Random Userline</stringProp>
+                <stringProp name="-1826356972">Random Userline Fragment</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Add Or Remove Friend" enabled="true"/>
+            <hashTree>
+              <RandomController guiclass="RandomControlGui" testclass="RandomController" testname="Pick Random Member or Poweruser Controller" enabled="true">
+                <intProp name="InterleaveControl.style">1</intProp>
+              </RandomController>
+              <hashTree>
+                <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="Pick Member for Friendship BeanShell Sampler" enabled="true">
+                  <stringProp name="BeanShellSampler.query">import java.util.Random;
+
+Random random = new Random();
+
+Integer index = 0;
+do{
+  index= random.nextInt(2000)+ 1;
+}while(vars.get( &quot;name_&quot;+index).equals(vars.get( &quot;username&quot;)));
+
+//log.info(vars.get( &quot;name_&quot;+index));
+vars.put(&quot;member&quot;,vars.get( &quot;name_&quot;+index));
+</stringProp>
+                  <stringProp name="BeanShellSampler.filename"></stringProp>
+                  <stringProp name="BeanShellSampler.parameters"></stringProp>
+                  <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+                </BeanShellSampler>
+                <hashTree/>
+                <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="Pick Poweruser as Member for Friendship BeanShell Sampler" enabled="true">
+                  <stringProp name="BeanShellSampler.query">import java.util.Random;
+
+Random random = new Random();
+Integer powerUserRatio =  Integer.parseInt(vars.get(&quot;powerUserRatio&quot;));
+Integer index = 0;
+do{
+  index= random.nextInt(2000/powerUserRatio)*powerUserRatio + 1;
+}while(vars.get( &quot;name_&quot;+index).equals(vars.get( &quot;username&quot;)));
+
+//log.info(vars.get( &quot;name_&quot;+index));
+vars.put(&quot;member&quot;,vars.get( &quot;name_&quot;+index));
+</stringProp>
+                  <stringProp name="BeanShellSampler.filename"></stringProp>
+                  <stringProp name="BeanShellSampler.parameters"></stringProp>
+                  <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+                </BeanShellSampler>
+                <hashTree/>
+              </hashTree>
+              <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Add Or Remove Friend Module Controller" enabled="true">
+                <collectionProp name="ModuleController.node_path">
+                  <stringProp name="-1227702913">WorkBench</stringProp>
+                  <stringProp name="-1081304357">Testplan</stringProp>
+                  <stringProp name="-2002903564">Add Or Remove Friend Fragment</stringProp>
+                </collectionProp>
+              </ModuleController>
+              <hashTree/>
+            </hashTree>
           </hashTree>
         </hashTree>
-        <OnceOnlyController guiclass="OnceOnlyControllerGui" testclass="OnceOnlyController" testname="Logout (once)" enabled="true"/>
-        <hashTree>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Controller" enabled="true">
-            <collectionProp name="ModuleController.node_path">
-              <stringProp name="-1227702913">WorkBench</stringProp>
-              <stringProp name="-1081304357">Testplan</stringProp>
-              <stringProp name="-790338522">Logout Fragment</stringProp>
-            </collectionProp>
-          </ModuleController>
-          <hashTree/>
-        </hashTree>
+        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Logout Module Controller" enabled="true">
+          <collectionProp name="ModuleController.node_path">
+            <stringProp name="-1227702913">WorkBench</stringProp>
+            <stringProp name="-1081304357">Testplan</stringProp>
+            <stringProp name="-790338522">Logout Fragment</stringProp>
+          </collectionProp>
+        </ModuleController>
+        <hashTree/>
         <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant throughput timer" enabled="true">
-          <stringProp name="calcMode">this thread only</stringProp>
+          <stringProp name="calcMode">all active threads in current thread group</stringProp>
           <doubleProp>
             <name>throughput</name>
-            <value>1000.0</value>
+            <value>10000.0</value>
             <savedValue>0.0</savedValue>
           </doubleProp>
         </ConstantThroughputTimer>
         <hashTree/>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
-          <boolProp name="ResultCollector.error_logging">false</boolProp>
-          <objProp>
-            <name>saveConfig</name>
-            <value class="SampleSaveConfiguration">
-              <time>true</time>
-              <latency>true</latency>
-              <timestamp>true</timestamp>
-              <success>true</success>
-              <label>true</label>
-              <code>true</code>
-              <message>true</message>
-              <threadName>true</threadName>
-              <dataType>true</dataType>
-              <encoding>false</encoding>
-              <assertions>true</assertions>
-              <subresults>true</subresults>
-              <responseData>false</responseData>
-              <samplerData>false</samplerData>
-              <xml>true</xml>
-              <fieldNames>false</fieldNames>
-              <responseHeaders>false</responseHeaders>
-              <requestHeaders>false</requestHeaders>
-              <responseDataOnError>false</responseDataOnError>
-              <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
-              <assertionsResultsToSave>0</assertionsResultsToSave>
-              <bytes>true</bytes>
-            </value>
-          </objProp>
-          <stringProp name="filename"></stringProp>
-        </ResultCollector>
-        <hashTree/>
-        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
-          <collectionProp name="CookieManager.cookies"/>
-          <boolProp name="CookieManager.clearEachIteration">true</boolProp>
-        </CookieManager>
-        <hashTree/>
-        <ResultCollector guiclass="SplineVisualizer" testclass="ResultCollector" testname="Spline Visualizer" enabled="true">
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -520,7 +897,7 @@ vars.put(&quot;username&quot;,vars.get( &quot;name_&quot;+index));
                 <stringProp name="RegexExtractor.refname">actionfriendurl</stringProp>
                 <stringProp name="RegexExtractor.regex">action=&quot;\./page\?([^&quot;]+\-action\-actionfriend)&quot;</stringProp>
                 <stringProp name="RegexExtractor.template">$1$</stringProp>
-                <stringProp name="RegexExtractor.default">false</stringProp>
+                <stringProp name="RegexExtractor.default">null</stringProp>
                 <stringProp name="RegexExtractor.match_number">1</stringProp>
                 <stringProp name="Sample.scope">all</stringProp>
               </RegexExtractor>
@@ -529,15 +906,48 @@ vars.put(&quot;username&quot;,vars.get( &quot;name_&quot;+index));
             <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract possible action form response" enabled="true">
               <stringProp name="RegexExtractor.useHeaders">unescaped</stringProp>
               <stringProp name="RegexExtractor.refname">possibleAction</stringProp>
-              <stringProp name="RegexExtractor.regex">(Remove|Add) Friend</stringProp>
+              <stringProp name="RegexExtractor.regex">((?:Add)?(?:Remove)?) Friend\s</stringProp>
               <stringProp name="RegexExtractor.template">$1$</stringProp>
               <stringProp name="RegexExtractor.default"></stringProp>
               <stringProp name="RegexExtractor.match_number">1</stringProp>
             </RegexExtractor>
             <hashTree/>
+            <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler" enabled="true">
+              <stringProp name="BeanShellSampler.query">String actionUrl = vars.get(&quot;actionfriendurl&quot;);
+String possibleAction = vars.get(&quot;possibleAction&quot;);
+String action = vars.get(&quot;action&quot;);
+
+if(actionUrl==null||actionUrl.equals(&quot;&quot;)||actionUrl.equals(&quot;null&quot;)){
+	vars.put(&quot;doAction&quot;,&quot;false&quot;);
+	return;
+}
+
+ if(possibleAction==null||possibleAction.equals(&quot;&quot;)||possibleAction.equals(&quot;null&quot;)){
+	vars.put(&quot;doAction&quot;,&quot;false&quot;);
+	return;
+}
+ if(possibleAction.equals(&quot;Add&quot;) || possibleAction.equals(&quot;Remove&quot;)  || action==null||action.equals(&quot;&quot;)||action.equals(&quot;null&quot;)||action.equals(possibleAction)){
+	vars.put(&quot;doAction&quot;,&quot;true&quot;); 	  	
+ 	return; 	
+}
+vars.put(&quot;doAction&quot;,&quot;false&quot;);
+</stringProp>
+              <stringProp name="BeanShellSampler.filename"></stringProp>
+              <stringProp name="BeanShellSampler.parameters"></stringProp>
+              <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+            </BeanShellSampler>
+            <hashTree/>
+            <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler" enabled="true">
+              <stringProp name="BeanShellSampler.query">//log.info(vars.get(&quot;possibleAction&quot;) +&quot; &quot; + vars.get(&quot;doAction&quot;));
+</stringProp>
+              <stringProp name="BeanShellSampler.filename"></stringProp>
+              <stringProp name="BeanShellSampler.parameters"></stringProp>
+              <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+            </BeanShellSampler>
+            <hashTree/>
           </hashTree>
           <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If-Controller" enabled="true">
-            <stringProp name="IfController.condition">&quot;${actionfriendurl}&quot;!=&quot;false&quot;&amp;&amp;(&quot;${possibleAction}&quot;==&quot;${action}&quot;||&quot;${action}&quot;==&quot;&quot;)</stringProp>
+            <stringProp name="IfController.condition">&quot;${doAction}&quot;==&quot;true&quot;</stringProp>
             <boolProp name="IfController.evaluateAll">false</boolProp>
           </IfController>
           <hashTree>
@@ -1298,6 +1708,38 @@ vars.put(&quot;tweet&quot;, vars.get(&quot;tweet_&quot;+random.nextInt(999).toSt
           <hashTree/>
         </hashTree>
       </hashTree>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>true</xml>
+            <fieldNames>false</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
     </hashTree>
   </hashTree>
 </jmeterTestPlan>
