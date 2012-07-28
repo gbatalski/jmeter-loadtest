@@ -453,7 +453,7 @@ vars.put(&quot;member&quot;,vars.get( &quot;name_&quot;+index));
           <stringProp name="BeanShellSampler.query">Integer index = Integer.parseInt(vars.get(&quot;userRandomValue&quot;));
 Integer powerUserRatio =  Integer.parseInt(vars.get(&quot;powerUserRatio&quot;));
 if(index % powerUserRatio == 0) vars.put(&quot;isPowerUser&quot;, &quot;true&quot;);
-	
+    
 //log.info(vars.get( &quot;name_&quot;+index));
 //log.info(vars.get( &quot;isPowerUser&quot;));
 vars.put(&quot;username&quot;,vars.get( &quot;name_&quot;+index));
@@ -870,17 +870,17 @@ String possibleAction = vars.get(&quot;possibleAction&quot;);
 String action = vars.get(&quot;action&quot;);
 
 if(actionUrl==null||actionUrl.equals(&quot;&quot;)||actionUrl.equals(&quot;null&quot;)){
-	vars.put(&quot;doAction&quot;,&quot;false&quot;);
-	return;
+    vars.put(&quot;doAction&quot;,&quot;false&quot;);
+    return;
 }
 
  if(possibleAction==null||possibleAction.equals(&quot;&quot;)||possibleAction.equals(&quot;null&quot;)){
-	vars.put(&quot;doAction&quot;,&quot;false&quot;);
-	return;
+    vars.put(&quot;doAction&quot;,&quot;false&quot;);
+    return;
 }
  if(possibleAction.equals(&quot;Add&quot;) || possibleAction.equals(&quot;Remove&quot;)  || action==null||action.equals(&quot;&quot;)||action.equals(&quot;null&quot;)||action.equals(possibleAction)){
-	vars.put(&quot;doAction&quot;,&quot;true&quot;); 	  	
- 	return; 	
+    vars.put(&quot;doAction&quot;,&quot;true&quot;);        
+    return;     
 }
 vars.put(&quot;doAction&quot;,&quot;false&quot;);
 </stringProp>
@@ -1464,7 +1464,7 @@ vars.put(&quot;tweet&quot;, vars.get(&quot;tweet_&quot;+random.nextInt(999).toSt
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
-              <stringProp name="HTTPSampler.path">${contextPath}wicket/bookmarkable/example.Publicline</stringProp>
+              <stringProp name="HTTPSampler.path">${contextPath}</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
