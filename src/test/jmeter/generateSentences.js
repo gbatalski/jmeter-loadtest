@@ -637,8 +637,14 @@ function GenRandomSentence() {
 
 qinit();
 // document.write ( "RandSeed = ", RandSeed )
-// var r = qrand(10000);
-// document.write ( "<br>r = ", r )
+var r = qrand(10000);
+//document.write ( "<br>r = ", r )
+ for (i = 0; i < r; i++) {
+	 	var s= GenRandomSentence();
+	 	if(s !="")
+        document.write(s, "<br/>");
+    }
+/*
 document.write("<h2>Introduction</h2>");
 for (i = 0; i < 5; i++) {
 
@@ -660,3 +666,4 @@ for (i = 0; i < 5; i++) {
 
     document.write(GenRandomSentence(), " ");
 }
+*/

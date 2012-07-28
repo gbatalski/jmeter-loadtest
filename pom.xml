@@ -7,7 +7,8 @@
 	<packaging>pom</packaging>
 	
     <properties>
-        <jmeter.analysis.maven.plugin.version>1.0.0</jmeter.analysis.maven.plugin.version>
+        <jmeter.analysis.maven.plugin.version>1.0.1-SNAPSHOT</jmeter.analysis.maven.plugin.version>
+        <suppressJMeterOutput>false</suppressJMeterOutput>
     </properties>
 	<profiles>
 		<profile>
@@ -17,8 +18,9 @@
 				<host>localhost</host>
 				<port>9292</port>
 				<contextPath>/</contextPath>
-				<users>10</users>
-	            <loops>1</loops>	           
+				<users>100</users>
+	            <loops>10</loops>
+	            <file.dir>${project.basedir}/src/test/jmeter</file.dir>	           
 			</properties>
 			<activation>
 			 <activeByDefault>true</activeByDefault>
@@ -28,7 +30,7 @@
 				<plugin>
 					<groupId>com.lazerycode.jmeter</groupId>
 					<artifactId>jmeter-maven-plugin</artifactId>
-					<version>1.6.0</version>
+					<version>1.6.1-SNAPSHOT</version>
 					<executions>
 						<execution>
 							<id>jmeter-tests</id>
@@ -55,6 +57,7 @@
 							<contextPath>${contextPath}</contextPath>
 							<users>${users}</users>
 							<loops>${loops}</loops>
+							<file.dir>${file.dir}</file.dir>
 						</propertiesSystem>
 					</configuration>
 				</plugin>
@@ -69,6 +72,7 @@
 							<goals>
 								<goal>analyze</goal>
 							</goals>
+							<phase>verify</phase>
 							<configuration>
 								<!-- An AntPath-Style pattern matching a JMeter XML result file to analyze. 
 									Must be a fully qualified path. File may be GZiped, must end in .gz then. -->
@@ -82,11 +86,12 @@
 									A request uri that matches an ant pattern will be associated with the group 
 									name. Request details, charts and CSV files are generated per requestGroup. 
 									If not set, the threadgroup name of the request will be used. -->
+								<!-- 
 								<requestGroups>
 									<pages>/page/**</pages>
 									<binaries>/binary/**</binaries>
 								</requestGroups>
-				
+				                -->
 								<!-- If set to true, additional files "<category>-sizes.csv" and "<category>-durations.csv" 
 									will be stored. These files contain detailed information for response size 
 									and response durations for every URI. -->
@@ -102,19 +107,21 @@
 									subfolders of the templateDirectory: csv html text The entry template must 
 									be called "main.ftl". For example, templateDirectory/text/main.ftl will be 
 									used for generating the console output. -->
-								<templateDirectory>${project.basedir}/src/main/resources/</templateDirectory>
-				
+								<!-- 
+								templateDirectory>${project.basedir}/src/main/resources/</templateDirectory>
+				                -->
 								<!-- Mapping from resource URL to file name. Every resource will be downloaded 
 									and stored in 'targetDirectory' with the given filename. Tokens "_FROM_" 
 									and "_TO_" can be used as placeholders. These placeholders will be replaced 
 									by timestamps of execution interval (formatted as ISO8601, e.g. '20111216T145509+0100'). -->
+								<!--
 								<remoteResources>
 									<property>
 										<name>http://yourhost/path?from=_FROM_&amp;to=_TO_</name>
 										<value>my_resource.txt</value>
 									</property>
 								</remoteResources>
-				
+				                 -->
 							</configuration>
 						</execution>
 					</executions>
