@@ -22,7 +22,7 @@
         <stringProp name="HTTPSampler.protocol">${__P(protocol,http)}</stringProp>
         <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
         <stringProp name="HTTPSampler.path">${__P(contextPath,/twissjava/)}</stringProp>
-        <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        <stringProp name="HTTPSampler.implementation">Java</stringProp>
         <boolProp name="HTTPSampler.image_parser">true</boolProp>
         <stringProp name="HTTPSampler.concurrentPool">4</stringProp>
       </ConfigTestElement>
@@ -188,7 +188,7 @@ vars.put(&quot;username&quot;,vars.get( &quot;name_&quot;+index));
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
           <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+          <stringProp name="HTTPSampler.implementation">Java</stringProp>
           <boolProp name="HTTPSampler.monitor">false</boolProp>
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
         </HTTPSamplerProxy>
@@ -303,7 +303,7 @@ vars.put(&quot;username&quot;,vars.get( &quot;name_&quot;+index));
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
           <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+          <stringProp name="HTTPSampler.implementation">Java</stringProp>
           <boolProp name="HTTPSampler.monitor">false</boolProp>
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
         </HTTPSamplerProxy>
@@ -481,7 +481,7 @@ vars.put(&quot;username&quot;,vars.get( &quot;name_&quot;+index));
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+            <stringProp name="HTTPSampler.implementation">Java</stringProp>
             <boolProp name="HTTPSampler.monitor">false</boolProp>
             <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
           </HTTPSamplerProxy>
@@ -720,7 +720,7 @@ vars.put(&quot;member&quot;,vars.get( &quot;name_&quot;+index));
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
               <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
               <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+              <stringProp name="HTTPSampler.implementation">Java</stringProp>
               <boolProp name="HTTPSampler.monitor">false</boolProp>
               <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
             </HTTPSamplerProxy>
@@ -808,7 +808,7 @@ vars.put(&quot;member&quot;,vars.get( &quot;name_&quot;+index));
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
               <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
               <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+              <stringProp name="HTTPSampler.implementation">Java</stringProp>
               <boolProp name="HTTPSampler.monitor">false</boolProp>
               <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
             </HTTPSamplerProxy>
@@ -929,7 +929,7 @@ vars.put(&quot;doAction&quot;,&quot;false&quot;);
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
                 <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
                 <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+                <stringProp name="HTTPSampler.implementation">Java</stringProp>
                 <boolProp name="HTTPSampler.monitor">false</boolProp>
                 <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
               </HTTPSamplerProxy>
@@ -1018,7 +1018,7 @@ vars.put(&quot;doAction&quot;,&quot;false&quot;);
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
               <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
               <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+              <stringProp name="HTTPSampler.implementation">Java</stringProp>
               <boolProp name="HTTPSampler.monitor">false</boolProp>
               <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
             </HTTPSamplerProxy>
@@ -1089,7 +1089,7 @@ vars.put(&quot;doAction&quot;,&quot;false&quot;);
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
               <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
               <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+              <stringProp name="HTTPSampler.implementation">Java</stringProp>
               <boolProp name="HTTPSampler.monitor">false</boolProp>
               <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
             </HTTPSamplerProxy>
@@ -1174,7 +1174,7 @@ vars.put(&quot;doAction&quot;,&quot;false&quot;);
                   <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
                   <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
                   <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                  <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+                  <stringProp name="HTTPSampler.implementation">Java</stringProp>
                   <boolProp name="HTTPSampler.monitor">false</boolProp>
                   <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
                 </HTTPSamplerProxy>
@@ -1228,7 +1228,7 @@ vars.put(&quot;doAction&quot;,&quot;false&quot;);
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
           <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+          <stringProp name="HTTPSampler.implementation">Java</stringProp>
           <boolProp name="HTTPSampler.monitor">false</boolProp>
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
         </HTTPSamplerProxy>
@@ -1286,7 +1286,7 @@ vars.put(&quot;doAction&quot;,&quot;false&quot;);
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+            <stringProp name="HTTPSampler.implementation">Java</stringProp>
             <boolProp name="HTTPSampler.monitor">false</boolProp>
             <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
           </HTTPSamplerProxy>
@@ -1333,7 +1333,7 @@ vars.put(&quot;doAction&quot;,&quot;false&quot;);
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
           <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+          <stringProp name="HTTPSampler.implementation">Java</stringProp>
           <boolProp name="HTTPSampler.monitor">false</boolProp>
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
         </HTTPSamplerProxy>
@@ -1399,7 +1399,7 @@ vars.put(&quot;doAction&quot;,&quot;false&quot;);
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+            <stringProp name="HTTPSampler.implementation">Java</stringProp>
             <boolProp name="HTTPSampler.monitor">false</boolProp>
             <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
           </HTTPSamplerProxy>
@@ -1470,7 +1470,7 @@ vars.put(&quot;tweet&quot;, vars.get(&quot;tweet_&quot;+random.nextInt(999).toSt
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
               <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
               <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+              <stringProp name="HTTPSampler.implementation">Java</stringProp>
               <boolProp name="HTTPSampler.monitor">false</boolProp>
               <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
             </HTTPSamplerProxy>
@@ -1534,7 +1534,7 @@ vars.put(&quot;tweet&quot;, vars.get(&quot;tweet_&quot;+random.nextInt(999).toSt
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
               <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
               <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+              <stringProp name="HTTPSampler.implementation">Java</stringProp>
               <boolProp name="HTTPSampler.monitor">false</boolProp>
               <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
             </HTTPSamplerProxy>
@@ -1596,7 +1596,7 @@ vars.put(&quot;tweet&quot;, vars.get(&quot;tweet_&quot;+random.nextInt(999).toSt
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
           <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+          <stringProp name="HTTPSampler.implementation">Java</stringProp>
           <boolProp name="HTTPSampler.monitor">false</boolProp>
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
         </HTTPSamplerProxy>
