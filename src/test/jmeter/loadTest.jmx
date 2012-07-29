@@ -246,7 +246,7 @@ vars.put(&quot;username&quot;,vars.get( &quot;name_&quot;+index));
         </ModuleController>
         <hashTree/>
         <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant throughput timer" enabled="true">
-          <stringProp name="calcMode">all active threads in current thread group</stringProp>
+          <stringProp name="calcMode">Nur dieser Thread</stringProp>
           <doubleProp>
             <name>throughput</name>
             <value>1.0E7</value>
@@ -394,7 +394,7 @@ vars.put(&quot;member&quot;,vars.get( &quot;name_&quot;+index));
         </ModuleController>
         <hashTree/>
         <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant throughput timer" enabled="true">
-          <stringProp name="calcMode">all active threads in current thread group</stringProp>
+          <stringProp name="calcMode">Nur dieser Thread</stringProp>
           <doubleProp>
             <name>throughput</name>
             <value>1.0E7</value>
@@ -653,7 +653,7 @@ vars.put(&quot;member&quot;,vars.get( &quot;name_&quot;+index));
         </ModuleController>
         <hashTree/>
         <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant throughput timer" enabled="true">
-          <stringProp name="calcMode">all active threads in current thread group</stringProp>
+          <stringProp name="calcMode">Nur dieser Thread</stringProp>
           <doubleProp>
             <name>throughput</name>
             <value>1.0E7</value>
@@ -1393,7 +1393,7 @@ vars.put(&quot;doAction&quot;,&quot;false&quot;);
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
-            <stringProp name="HTTPSampler.path">${contextPath}wicket/bookmarkable/example.Publicline</stringProp>
+            <stringProp name="HTTPSampler.path">${contextPath}</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>

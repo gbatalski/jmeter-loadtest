@@ -17,7 +17,6 @@ host  default localhost
 port default 9292
 protocol default http
 contextPath default /
-user.dir - wd with tweets.txt
 powerUserRatio relation benutzer vs power user default 10/1
 minimumTweetsPerSession default 3
 maximumTweetsPerSession default 10
@@ -30,7 +29,8 @@ powerUser2UserTweetRatio,10
 loops
 users anz. threads
 
-
+setupLoops
+setupUsers
 
 Credits
 --------------
