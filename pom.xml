@@ -9,6 +9,10 @@
     <properties>
         <jmeter.analysis.maven.plugin.version>1.0.1-SNAPSHOT</jmeter.analysis.maven.plugin.version>
         <suppressJMeterOutput>false</suppressJMeterOutput>
+        <!--
+        <jmeter.ignore.error>true</jmeter.ignore.error>
+        <jmeter.ignore.failure>true</jmeter.ignore.failure>
+        -->
     </properties>
 	<profiles>
 		<profile>

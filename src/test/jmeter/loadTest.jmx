@@ -4,7 +4,7 @@
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Testplan" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
-      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">true</boolProp>
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="Benutzer definierte Variablen" enabled="true">
         <collectionProp name="Arguments.arguments"/>
       </elementProp>
@@ -15,10 +15,10 @@
         <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
           <collectionProp name="Arguments.arguments"/>
         </elementProp>
-        <stringProp name="HTTPSampler.domain">${__P(host,twissjava-c4lxt4lxj4xl-1109442528.us-east-1.elb.amazonaws.com)}</stringProp>
+        <stringProp name="HTTPSampler.domain">${__P(host,twissjavac4lxt4lxj4xl-904746870.us-east-1.elb.amazonaws.com)}</stringProp>
         <stringProp name="HTTPSampler.port">${__P(port,80)}</stringProp>
-        <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-        <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        <stringProp name="HTTPSampler.connect_timeout">5000</stringProp>
+        <stringProp name="HTTPSampler.response_timeout">10000</stringProp>
         <stringProp name="HTTPSampler.protocol">${__P(protocol,http)}</stringProp>
         <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
         <stringProp name="HTTPSampler.path">${__P(contextPath,/twissjava/)}</stringProp>
@@ -31,13 +31,14 @@
       <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
         <collectionProp name="CookieManager.cookies"/>
         <boolProp name="CookieManager.clearEachIteration">true</boolProp>
+        <stringProp name="CookieManager.policy">default</stringProp>
       </CookieManager>
       <hashTree/>
       <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Benutzer definierte Variablen" enabled="false">
         <collectionProp name="Arguments.arguments">
           <elementProp name="host" elementType="Argument">
             <stringProp name="Argument.name">host</stringProp>
-            <stringProp name="Argument.value">twissjava-c4lxt4lxj4xl-1109442528.us-east-1.elb.amazonaws.com</stringProp>
+            <stringProp name="Argument.value">twissjavac4lxt4lxj4xl-904746870.us-east-1.elb.amazonaws.com</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="port" elementType="Argument">
@@ -53,6 +54,89 @@
           <elementProp name="file.dir" elementType="Argument">
             <stringProp name="Argument.name">file.dir</stringProp>
             <stringProp name="Argument.value">/home/gena/workspace/jmeter-loadtest/src/test/jmeter</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User defined variables - Test" enabled="false">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="contextPath" elementType="Argument">
+            <stringProp name="Argument.name">contextPath</stringProp>
+            <stringProp name="Argument.value">${__P(contextPath,${contextPath})}</stringProp>
+            <stringProp name="Argument.desc">Context path</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="password" elementType="Argument">
+            <stringProp name="Argument.name">password</stringProp>
+            <stringProp name="Argument.value">V3ryS3cr3t</stringProp>
+            <stringProp name="Argument.desc">Default password</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="tweetsFile" elementType="Argument">
+            <stringProp name="Argument.name">tweetsFile</stringProp>
+            <stringProp name="Argument.value">${__FileToString(${__P(file.dir,${file.dir})}/tweets.txt,UTF-8,tweetsAsString)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="allTweets" elementType="Argument">
+            <stringProp name="Argument.name">allTweets</stringProp>
+            <stringProp name="Argument.value">${__split(${tweetsAsString},tweet,${__char(13,10)})}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">Read tweets from file</stringProp>
+          </elementProp>
+          <elementProp name="namesFile" elementType="Argument">
+            <stringProp name="Argument.name">namesFile</stringProp>
+            <stringProp name="Argument.value">${__FileToString(${__P(file.dir,${file.dir})}/names.txt,UTF-8,namesAsString)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="names" elementType="Argument">
+            <stringProp name="Argument.name">names</stringProp>
+            <stringProp name="Argument.value">${__split(${namesAsString},name,${__char(13,10)})}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">Read users from file</stringProp>
+          </elementProp>
+          <elementProp name="powerUserRatio" elementType="Argument">
+            <stringProp name="Argument.name">powerUserRatio</stringProp>
+            <stringProp name="Argument.value">${__P(powerUserRatio,10)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">Each n-th (10th) user is poweruser</stringProp>
+          </elementProp>
+          <elementProp name="minimumTweetsPerSession" elementType="Argument">
+            <stringProp name="Argument.name">minimumTweetsPerSession</stringProp>
+            <stringProp name="Argument.value">${__P(minimumTweetsPerSession,3)}</stringProp>
+            <stringProp name="Argument.desc">Min Tweets per Session</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="maximumTweetsPerSession" elementType="Argument">
+            <stringProp name="Argument.name">maximumTweetsPerSession</stringProp>
+            <stringProp name="Argument.value">${__P(maximumTweetsPerSession,10)}</stringProp>
+            <stringProp name="Argument.desc">Max Tweets per Session</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="tweetOrBrowseOperationsCount" elementType="Argument">
+            <stringProp name="Argument.name">tweetOrBrowseOperationsCount</stringProp>
+            <stringProp name="Argument.value">${__P(tweetOrBrowseOperationsCount,50)}</stringProp>
+            <stringProp name="Argument.desc">Loops count for tweet or browse operation</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="tweetsPerPoweruser" elementType="Argument">
+            <stringProp name="Argument.name">tweetsPerPoweruser</stringProp>
+            <stringProp name="Argument.value">${__P(tweetsPerPoweruser,10)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="friendsPerPoweruser" elementType="Argument">
+            <stringProp name="Argument.name">friendsPerPoweruser</stringProp>
+            <stringProp name="Argument.value">${__P(friendsPerPoweruser,10)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="powerUserFriendsCount" elementType="Argument">
+            <stringProp name="Argument.name">powerUserFriendsCount</stringProp>
+            <stringProp name="Argument.value">${__P(powerUserFriendsCount,20)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="powerUser2UserTweetRatio" elementType="Argument">
+            <stringProp name="Argument.name">powerUser2UserTweetRatio</stringProp>
+            <stringProp name="Argument.value">${__P(powerUser2UserTweetRatio,10)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
