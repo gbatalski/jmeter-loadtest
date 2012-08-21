@@ -7,7 +7,7 @@
 	<packaging>pom</packaging>
 	
     <properties>
-        <jmeter.analysis.maven.plugin.version>1.0.1-SNAPSHOT</jmeter.analysis.maven.plugin.version>
+        <jmeter.analysis.maven.plugin.version>1.0.1</jmeter.analysis.maven.plugin.version>
         <suppressJMeterOutput>false</suppressJMeterOutput>
         <!--
         <jmeter.ignore.error>true</jmeter.ignore.error>
