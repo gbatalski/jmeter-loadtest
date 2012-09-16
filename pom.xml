@@ -7,7 +7,7 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<jmeter.analysis.maven.plugin.version>1.0.1</jmeter.analysis.maven.plugin.version>
+		<jmeter.analysis.maven.plugin.version>1.0.2-SNAPSHOT</jmeter.analysis.maven.plugin.version>
 		<suppressJMeterOutput>false</suppressJMeterOutput>
 		<!-- <jmeter.ignore.error>true</jmeter.ignore.error> <jmeter.ignore.failure>true</jmeter.ignore.failure> -->
 	</properties>
@@ -131,6 +131,10 @@
 
 	<!-- in case we want to use a SNAPSHOT version of the jmeter-maven-plugin -->
 	<pluginRepositories>
+	    <pluginRepository>
+            <id>gbatalski-snapshots</id>
+            <url>https://raw.github.com/gbatalski/gbatalski-maven-repo/master/snapshots/</url>
+        </pluginRepository>
 		<pluginRepository>
 			<id>sonatype-snapshots</id>
 			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
